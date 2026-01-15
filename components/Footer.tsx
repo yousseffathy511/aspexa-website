@@ -4,6 +4,7 @@ import { Instagram, Linkedin, Twitter } from 'lucide-react';
 
 const getAssetPath = (path: string) => {
   const base = import.meta.env.BASE_URL || '/';
+  if (!path) return base;
   return `${base}${path.startsWith('/') ? path.slice(1) : path}`;
 };
 
