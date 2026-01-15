@@ -44,31 +44,49 @@ export const AnimationProvider: React.FC<AnimationProviderProps> = ({
     const rafIdRef = useRef<number | null>(null);
 
     useEffect(() => {
-        // Initialize Lenis smooth scrolling
-        const lenisInstance = new Lenis({
-            duration: 1.2,
-            easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Exponential ease-out
-            orientation: 'vertical',
-            gestureOrientation: 'vertical',
-            smoothWheel: true,
-            wheelMultiplier: 1,
-            touchMultiplier: 2,
-        });
+        let lenisInstance: Lenis | null = null;
 
-        setLenis(lenisInstance);
+        try {
+            // Initialize Lenis smooth scrolling
+            lenisInstance = new Lenis({
+                duration: 1.2,
+                easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Exponential ease-out
+                orientation: 'vertical',
+                gestureOrientation: 'vertical',
+                smoothWheel: true,
+                wheelMultiplier: 1,
+                touchMultiplier: 2,
+            });
 
-        // Animation frame loop for Lenis
-        function raf(time: number) {
-            lenisInstance.raf(time);
+            setLenis(lenisInstance);
+
+            // Animation frame loop for Lenis
+            function raf(time: number) {
+                try {
+                    if (lenisInstance) {
+                        lenisInstance.raf(time);
+                    }
+                    rafIdRef.current = requestAnimationFrame(raf);
+                } catch (e) {
+                    console.error('Lenis raf error:', e);
+                }
+            }
             rafIdRef.current = requestAnimationFrame(raf);
+        } catch (e) {
+            console.error('Lenis initialization error:', e);
         }
-        rafIdRef.current = requestAnimationFrame(raf);
 
         return () => {
             if (rafIdRef.current) {
                 cancelAnimationFrame(rafIdRef.current);
             }
-            lenisInstance.destroy();
+            if (lenisInstance) {
+                try {
+                    lenisInstance.destroy();
+                } catch (e) {
+                    console.error('Lenis destroy error:', e);
+                }
+            }
         };
     }, []);
 
