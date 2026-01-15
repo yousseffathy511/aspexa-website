@@ -3,18 +3,27 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>404 - Page Not Found | ASPEXA</title>
+    <title>ASPEXA | Advanced AI Red-Teaming</title>
     <script>
-      // GitHub Pages SPA redirect handling
-      // This script redirects to the hash-based URL for the SPA to handle the 404
-      sessionStorage.redirect = location.href;
+      // Single Page Apps for GitHub Pages
+      // MIT License
+      // https://github.com/rafgraph/spa-github-pages
+      // This script takes the current url and converts the path and query
+      // string into just a query string, and then redirects the browser
+      // to the new url with only a query string and hash fragment
+      (function(l) {
+        if (l.search[1] === '/' ) {
+          var decoded = l.search.slice(1).split('&').map(function(s) {
+            return s.replace(/~and~/g, '&')
+          }).join('?');
+          window.history.replaceState(null, null,
+              l.pathname.slice(0, -1) + decoded + l.hash
+          );
+        }
+      }(window.location))
     </script>
-    <meta http-equiv="refresh" content="0;URL='/aspexa-website/#/'"></meta>
+    <meta http-equiv="refresh" content="0;URL='/aspexa-website/'"></meta>
   </head>
   <body>
-    <noscript>
-      <p>Redirecting to ASPEXA homepage...</p>
-      <p>If you are not redirected, <a href="/aspexa-website/#/">click here</a>.</p>
-    </noscript>
   </body>
 </html>
