@@ -2,9 +2,9 @@ import React from 'react';
 import { ShieldAlert, Database, Languages, FileText, Users, Cpu } from 'lucide-react';
 import { TeamMember, Service, FaqItem } from './types';
 
-const getAssetPath = (path: string) => {
+const getAssetPath = (path: string): string => {
   const base = import.meta.env.BASE_URL || '/';
-  if (!path) return base;
+  if (!path || typeof path !== 'string') return base;
   return `${base}${path.startsWith('/') ? path.slice(1) : path}`;
 };
 

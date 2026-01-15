@@ -2,9 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Shield, FileCheck, Code, Globe, ArrowRight, Terminal, Activity, Crosshair, Plus, Send, Zap } from 'lucide-react';
 
-const getAssetPath = (path: string) => {
+const getAssetPath = (path: string): string => {
   const base = import.meta.env.BASE_URL || '/';
-  if (!path) return base;
+  if (!path || typeof path !== 'string') return base;
   return `${base}${path.startsWith('/') ? path.slice(1) : path}`;
 };
 

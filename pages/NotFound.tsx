@@ -129,13 +129,13 @@ const NotFound: React.FC = () => {
           </div>
 
           <div className="font-mono text-xs sm:text-sm space-y-1.5 sm:space-y-2 overflow-x-auto">
-            {terminalLines.map((line, index) => (
+            {terminalLines.filter(Boolean).map((line, index) => (
               <div
                 key={index}
                 className={`${
-                  line.startsWith('$')
+                  line && line.startsWith('$')
                     ? 'text-green-400'
-                    : line.includes('ERROR')
+                    : line && line.includes('ERROR')
                     ? 'text-aspexa-red'
                     : 'text-gray-300'
                 }`}

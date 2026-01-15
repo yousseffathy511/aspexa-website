@@ -3,9 +3,9 @@ import { createPortal } from 'react-dom';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 
-const getAssetPath = (path: string) => {
+const getAssetPath = (path: string): string => {
   const base = import.meta.env.BASE_URL || '/';
-  if (!path) return base;
+  if (!path || typeof path !== 'string') return base;
   return `${base}${path.startsWith('/') ? path.slice(1) : path}`;
 };
 
