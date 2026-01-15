@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ASPEXA | Advanced AI Red-Teaming</title>
+    <link rel="icon" type="image/png" href="/logos/favicon.png" />
+    
+    <!-- Google Fonts: Rajdhani & Space Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'aspexa-red': '#EC0000',
+              'aspexa-black': '#050505',
+              'aspexa-dark': '#0A0A0A',
+              'aspexa-light': '#F8F8F8',
+            },
+            fontFamily: {
+              sans: ['Rajdhani', 'sans-serif'],
+              mono: ['Space Mono', 'monospace'],
+            },
+            animation: {
+              'pulse-slow': 'pulse 8s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'glitch': 'glitch 1s linear infinite',
+              'scanline': 'scanline 8s linear infinite',
+            },
+            keyframes: {
+              scanline: {
+                '0%': { transform: 'translateY(-100%)' },
+                '100%': { transform: 'translateY(100%)' }
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      :root {
+        --aspexa-red: #EC0000;
+      }
+      body {
+        background-color: #030303;
+        color: #FFFFFF;
+        font-family: 'Rajdhani', sans-serif;
+        overflow-x: hidden;
+        margin: 0;
+      }
+
+      /* --- MODERN CYBERSECURITY BACKGROUND --- */
+      
+      /* 1. Base Layer: Deep Black */
+      .bg-base {
+        position: fixed;
+        top: 0; left: 0; width: 100vw; height: 100vh;
+        z-index: -100;
+        background-color: #000000;
+      }
+
+      /* 2. Red Glow Blobs - Animated */
+      .red-glow-1 {
+        position: fixed;
+        top: -10%;
+        left: -10%;
+        width: 50vw;
+        height: 50vh;
+        background: radial-gradient(circle, rgba(236, 0, 0, 0.15) 0%, rgba(236, 0, 0, 0.05) 30%, transparent 70%);
+        filter: blur(80px);
+        z-index: -95;
+        animation: pulse-glow 8s ease-in-out infinite alternate;
+      }
+
+      .red-glow-2 {
+        position: fixed;
+        bottom: -15%;
+        right: -15%;
+        width: 60vw;
+        height: 60vh;
+        background: radial-gradient(circle, rgba(153, 0, 0, 0.2) 0%, rgba(236, 0, 0, 0.08) 35%, transparent 70%);
+        filter: blur(100px);
+        z-index: -95;
+        animation: pulse-glow-2 10s ease-in-out infinite alternate;
+      }
+
+      .red-glow-3 {
+        position: fixed;
+        top: 40%;
+        right: 10%;
+        width: 40vw;
+        height: 40vh;
+        background: radial-gradient(circle, rgba(236, 0, 0, 0.1) 0%, rgba(236, 0, 0, 0.03) 40%, transparent 70%);
+        filter: blur(90px);
+        z-index: -95;
+        animation: pulse-glow-3 12s ease-in-out infinite alternate;
+      }
+
+      @keyframes pulse-glow {
+        0% { 
+          transform: translate(0, 0) scale(1);
+          opacity: 1;
+        }
+        100% { 
+          transform: translate(30px, 20px) scale(1.1);
+          opacity: 0.8;
+        }
+      }
+
+      @keyframes pulse-glow-2 {
+        0% { 
+          transform: translate(0, 0) scale(1);
+          opacity: 1;
+        }
+        100% { 
+          transform: translate(-40px, -30px) scale(1.15);
+          opacity: 0.7;
+        }
+      }
+
+      @keyframes pulse-glow-3 {
+        0% { 
+          transform: translate(0, 0) scale(1);
+          opacity: 0.6;
+        }
+        100% { 
+          transform: translate(-20px, 25px) scale(1.08);
+          opacity: 0.9;
+        }
+      }
+
+      /* 3. Clean Minimal Grid - Linear/Vercel Style */
+      .tech-grid {
+        position: fixed;
+        top: 0; left: 0; width: 100vw; height: 100vh;
+        z-index: -90;
+        background-color: transparent;
+        background-image: 
+          linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        background-size: 80px 80px;
+        pointer-events: none;
+      }
+
+      /* Accent lines - thicker, more visible */
+      .tech-grid::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: 
+          linear-gradient(to right, rgba(236, 0, 0, 0.08) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(236, 0, 0, 0.08) 1px, transparent 1px);
+        background-size: 400px 400px;
+        opacity: 1;
+      }
+
+      /* 4. Scanline Effect (Optional - Very Subtle) */
+      .scanline {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -85;
+        background: linear-gradient(
+          to bottom,
+          transparent 50%,
+          rgba(236, 0, 0, 0.02) 51%,
+          transparent 52%
+        );
+        background-size: 100% 4px;
+        pointer-events: none;
+        opacity: 0.37;
+      }
+
+      /* 5. Vignette for depth */
+      .vignette {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -88;
+        background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.7) 100%);
+        pointer-events: none;
+      }
+
+      /* Scrollbar */
+      ::-webkit-scrollbar { width: 6px; }
+      ::-webkit-scrollbar-track { background: #020202; }
+      ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+      ::-webkit-scrollbar-thumb:hover { background: #EC0000; }
+      ::selection { background-color: #EC0000; color: #FFFFFF; }
+
+      /* Utility & Animation Classes */
+      .glitch-wrapper { position: relative; }
+      .glitch-wrapper::before, .glitch-wrapper::after {
+        content: attr(data-text);
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        opacity: 0.8;
+      }
+      .glitch-wrapper::before {
+        color: #0ff; z-index: -1;
+        animation: glitch-1 3s infinite linear alternate-reverse;
+      }
+      .glitch-wrapper::after {
+        color: #f0f; z-index: -2;
+        animation: glitch-2 2s infinite linear alternate-reverse;
+      }
+      @keyframes glitch-1 {
+        0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px, 1px); }
+        100% { clip-path: inset(30% 0 20% 0); transform: translate(1px, -1px); }
+      }
+      @keyframes glitch-2 {
+        0% { clip-path: inset(10% 0 60% 0); transform: translate(2px, -1px); }
+        100% { clip-path: inset(40% 0 30% 0); transform: translate(-2px, 2px); }
+      }
+      .text-outline { -webkit-text-stroke: 1px rgba(255,255,255,0.2); color: transparent; }
+      /* Note: .fade-in-up and .stagger-* animations removed - now handled by Framer Motion */
+
+
+      /* --- INTERACTIVE MOUSE GLOW EFFECT --- */
+      .glow-card {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .glow-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+          600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+          rgba(236, 0, 0, 0.15),
+          transparent 40%
+        );
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .glow-card:hover::before {
+        opacity: 1;
+      }
+
+      /* Glowing Border Effect */
+      .glow-border {
+        position: relative;
+        background: linear-gradient(#000, #000) padding-box,
+                    linear-gradient(90deg, 
+                      transparent, 
+                      rgba(236, 0, 0, 0.5) var(--mouse-x, 50%), 
+                      transparent
+                    ) border-box;
+        border: 1px solid transparent;
+      }
+
+      .glow-border::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        padding: 1px;
+        background: linear-gradient(
+          135deg,
+          transparent 0%,
+          rgba(236, 0, 0, 0.3) var(--mouse-x, 50%),
+          transparent 100%
+        );
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+      }
+
+      .glow-border:hover::after {
+        opacity: 1;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
+    "react-router-dom": "https://esm.sh/react-router-dom@^7.11.0",
+    "react-dom": "https://esm.sh/react-dom@^19.2.3"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <!-- Background Layers -->
+    <div class="bg-base"></div>
+    <div class="red-glow-1"></div>
+    <div class="red-glow-2"></div>
+    <div class="red-glow-3"></div>
+    <div class="tech-grid"></div>
+    <div class="scanline"></div>
+    <div class="vignette"></div>
+
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+
+    <!-- Mouse Tracking Glow Effect -->
+    <script>
+      // Track mouse position on glow cards
+      document.addEventListener('mousemove', (e) => {
+        const cards = document.querySelectorAll('.glow-card, .glow-border');
+        
+        cards.forEach(card => {
+          const rect = card.getBoundingClientRect();
+          const x = ((e.clientX - rect.left) / rect.width) * 100;
+          const y = ((e.clientY - rect.top) / rect.height) * 100;
+          
+          card.style.setProperty('--mouse-x', `${x}%`);
+          card.style.setProperty('--mouse-y', `${y}%`);
+        });
+      });
+    </script>
+  </body>
+</html>
