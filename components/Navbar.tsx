@@ -3,6 +3,11 @@ import { createPortal } from 'react-dom';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 
+const getAssetPath = (path: string) => {
+  const base = import.meta.env.BASE_URL || '/';
+  return `${base}${path.startsWith('/') ? path.slice(1) : path}`;
+};
+
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   // Initialize state based on actual scroll position to prevent "double" jump on load
@@ -58,8 +63,8 @@ const Navbar: React.FC = () => {
       <nav className={navInnerClasses}>
         {/* Logo */}
         <Link to="/" className="flex items-center group relative z-50">
-          <img 
-            src="/logos/Aspexa_Logo_2025_Primary_White.png" 
+          <img
+            src={getAssetPath("/logos/Aspexa_Logo_2025_Primary_White.png")}
             alt="ASPEXA" 
             className={`object-contain transition-all duration-500 ${scrolled ? 'h-6' : 'h-8 md:h-10'}`}
           />

@@ -2,6 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Shield, FileCheck, Code, Globe, ArrowRight, Terminal, Activity, Crosshair, Plus, Send, Zap } from 'lucide-react';
 
+const getAssetPath = (path: string) => {
+  const base = import.meta.env.BASE_URL || '/';
+  return `${base}${path.startsWith('/') ? path.slice(1) : path}`;
+};
+
 /* --- Components --- NO FRAMER MOTION --- */
 
 const GlitchText = ({ text }: { text: string }) => (
@@ -220,7 +225,7 @@ const Home: React.FC = () => {
                     controls
                     preload="metadata"
                   >
-                    <source src="/video/Video_Demo_Prompt_Request.mp4" type="video/mp4" />
+                    <source src={getAssetPath("/video/Video_Demo_Prompt_Request.mp4")} type="video/mp4" />
                   </video>
                 </div>
               </div>

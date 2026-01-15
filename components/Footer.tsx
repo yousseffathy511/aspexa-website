@@ -2,6 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Instagram, Linkedin, Twitter } from 'lucide-react';
 
+const getAssetPath = (path: string) => {
+  const base = import.meta.env.BASE_URL || '/';
+  return `${base}${path.startsWith('/') ? path.slice(1) : path}`;
+};
+
 // Custom TikTok icon component matching Lucide style
 const Tiktok = ({ size = 20, className = "" }: { size?: number, className?: string }) => (
   <svg 
@@ -26,7 +31,7 @@ const Footer: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
         {/* Column 1: Brand */}
         <div className="col-span-1 lg:col-span-1">
-          <img src="/logos/Aspexa_Logo_2025_Primary_White.png" alt="ASPEXA" className="h-8 mb-6 -ml-3" />
+          <img src={getAssetPath("/logos/Aspexa_Logo_2025_Primary_White.png")} alt="ASPEXA" className="h-8 mb-6 -ml-3" />
           <p className="mb-6 text-sm leading-relaxed">
             AI Security. Arabic Native.<br/>MENA Focused.
           </p>
