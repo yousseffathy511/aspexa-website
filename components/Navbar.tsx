@@ -3,16 +3,12 @@ import { createPortal } from 'react-dom';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 
-const getAssetPath = (path: string) => {
-  const base = import.meta.env.BASE_URL || '/';
-  if (!path) return base;
-  return `${base}${path.startsWith('/') ? path.slice(1) : path}`;
-};
+const BASE_PATH = '/aspexa-website/';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   // Initialize state based on actual scroll position to prevent "double" jump on load
-  const [scrolled, setScrolled] = useState(() => 
+  const [scrolled, setScrolled] = useState(() =>
     typeof window !== 'undefined' ? window.scrollY > 50 : false
   );
   const location = useLocation();
@@ -40,18 +36,28 @@ const Navbar: React.FC = () => {
     setIsOpen(false);
   }, [location]);
 
+  // Auto-close mobile menu when resizing to desktop
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768 && isOpen) {
+        setIsOpen(false);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [isOpen]);
+
   // Container: Fixed at top, transitions padding smoothly
-  const navContainerClasses = `fixed top-0 left-0 w-full z-50 transition-all duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] flex justify-center ${
-    scrolled ? 'pt-4' : 'pt-8'
-  }`;
+  const navContainerClasses = `fixed top-0 left-0 w-full z-50 transition-all duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] flex justify-center ${scrolled ? 'pt-4' : 'pt-8'
+    }`;
 
   // Inner Navbar: Transitions width, height, background, border
   // Note: We keep 'border' class in both states but change color/transparency to prevent layout shifts (1px jump)
   const navInnerClasses = `
     relative flex items-center justify-between transition-all duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1.0)]
     border
-    ${scrolled 
-      ? 'w-[90%] md:w-[60%] bg-black/80 backdrop-blur-md border-white/10 rounded-full shadow-[0_0_40px_rgba(0,0,0,0.8)] h-14 px-6' 
+    ${scrolled
+      ? 'w-[90%] md:w-[60%] bg-black/80 backdrop-blur-md border-white/10 rounded-full shadow-[0_0_40px_rgba(0,0,0,0.8)] h-14 px-6'
       : 'w-full bg-transparent border-transparent h-24 px-6 md:px-12'
     }
   `;
@@ -65,8 +71,8 @@ const Navbar: React.FC = () => {
         {/* Logo */}
         <Link to="/" className="flex items-center group relative z-50">
           <img
-            src={getAssetPath("/logos/Aspexa_Logo_2025_Primary_White.png")}
-            alt="ASPEXA" 
+            src={`${BASE_PATH}logos/Aspexa_Logo_2025_Primary_White.png`}
+            alt="ASPEXA"
             className={`object-contain transition-all duration-500 ${scrolled ? 'h-6' : 'h-8 md:h-10'}`}
           />
         </Link>
@@ -88,22 +94,22 @@ const Navbar: React.FC = () => {
 
         {/* Desktop CTA */}
         <div className="hidden md:block">
-          <Link 
-            to="/contact" 
+          <Link
+            to="/contact"
             className={`
               transition-all duration-500 font-bold uppercase tracking-widest rounded-full flex items-center gap-2
-              ${scrolled 
-                ? 'bg-aspexa-red text-white px-5 py-2 hover:bg-red-600 text-xs' 
+              ${scrolled
+                ? 'bg-aspexa-red text-white px-5 py-2 hover:bg-red-600 text-xs'
                 : 'bg-white text-black px-8 py-3 hover:bg-aspexa-red hover:text-white text-sm'
               }
             `}
           >
-             <span className="relative top-[1px]">Get Briefing</span>
+            <span className="relative top-[1px]">Get Briefing</span>
           </Link>
         </div>
 
         {/* Mobile Toggle */}
-        <button 
+        <button
           className="md:hidden text-white relative z-50 p-2"
           onClick={() => setIsOpen(!isOpen)}
         >
@@ -114,19 +120,19 @@ const Navbar: React.FC = () => {
       {/* Mobile Overlay */}
       {createPortal(
         <div className={`fixed inset-0 bg-black/95 backdrop-blur-3xl z-40 flex items-center justify-center transition-all duration-500 ${isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
-           <div className="flex flex-col gap-8 text-center">
-              {['Home', 'Services', 'Team', 'Pricing', 'About', 'Contact'].map((item, i) => (
-                <Link 
-                  key={item}
-                  to={item === 'Home' ? '/' : `/${item.toLowerCase()}`}
-                  onClick={() => setIsOpen(false)}
-                  className="text-4xl font-bold uppercase tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-gray-500 to-white hover:to-aspexa-red transition-all transform hover:scale-105"
-                  style={{ transitionDelay: `${i * 50}ms` }}
-                >
-                  {item}
-                </Link>
-              ))}
-           </div>
+          <div className="flex flex-col gap-8 text-center">
+            {['Home', 'Services', 'Team', 'Pricing', 'About', 'Contact'].map((item, i) => (
+              <Link
+                key={item}
+                to={item === 'Home' ? '/' : `/${item.toLowerCase()}`}
+                onClick={() => setIsOpen(false)}
+                className="text-4xl font-bold uppercase tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-gray-500 to-white hover:to-aspexa-red transition-all transform hover:scale-105"
+                style={{ transitionDelay: `${i * 50}ms` }}
+              >
+                {item}
+              </Link>
+            ))}
+          </div>
         </div>,
         document.body
       )}

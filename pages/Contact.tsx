@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { MapPin, Phone, Mail, ChevronDown, Send } from 'lucide-react';
 import { FAQ_DATA } from '../constants';
+import { FaqItem as FaqItemType } from '../types';
 
 // Simple info card - no Framer Motion
-const InfoCard = ({ icon: Icon, title, content }: { icon: any, title: string, content: string }) => {
+const InfoCard: React.FC<{ icon: React.ElementType, title: string, content: string }> = ({ icon: Icon, title, content }) => {
   return (
     <div className="glow-card group bg-black/40 p-8 border border-white/10 hover:border-aspexa-red/50 transition-all duration-300 backdrop-blur-md relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-aspexa-red/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
@@ -19,7 +20,7 @@ const InfoCard = ({ icon: Icon, title, content }: { icon: any, title: string, co
 };
 
 // Simple FAQ item - no Framer Motion
-const FaqItem = ({ item, index, isOpen, onToggle }: { item: any, index: number, isOpen: boolean, onToggle: () => void }) => {
+const FaqItem: React.FC<{ item: FaqItemType, index: number, isOpen: boolean, onToggle: () => void }> = ({ item, index, isOpen, onToggle }) => {
   return (
     <div className="group border border-white/10 bg-black/60 backdrop-blur-sm overflow-hidden hover:border-aspexa-red/30 transition-all duration-300 relative">
       {/* Side indicator */}

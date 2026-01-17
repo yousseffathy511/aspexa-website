@@ -17,7 +17,7 @@ const NotFound: React.FC = () => {
         .join('');
       setGlitchText(randomGlitch);
 
-      setTimeout(() => setGlitchText('404'), 100);
+      setTimeout(() => setGlitchText('404'), 400);
     }, 3000);
 
     // Terminal animation
@@ -56,7 +56,7 @@ const NotFound: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 py-12 sm:py-24 relative overflow-hidden">
+    <div className="min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 pt-32 pb-12 sm:py-24 relative overflow-hidden">
       {/* Animated grid background */}
       <div className="absolute inset-0 opacity-10">
         <div
@@ -74,13 +74,22 @@ const NotFound: React.FC = () => {
 
       {/* Glowing orbs */}
       <div className="absolute top-10 sm:top-20 left-10 sm:left-20 w-48 sm:w-96 h-48 sm:h-96 bg-aspexa-red/20 rounded-full blur-[120px] animate-pulse" />
-      <div className="absolute bottom-10 sm:bottom-20 right-10 sm:right-20 w-48 sm:w-96 h-48 sm:h-96 bg-white/10 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1s' }} />
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 sm:w-[500px] h-64 sm:h-[500px] bg-white/5 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1s' }} />
+
+      {/* Snake Icon Background Watermark */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 opacity-20">
+        <img
+          src="/aspexa-website/logos/Snake%20Icon%20Red.png"
+          alt="Aspexa Snake"
+          className="w-[300px] sm:w-[500px] md:w-[600px] object-contain opacity-50 drop-shadow-[0_0_50px_rgba(236,0,0,0.3)] animate-pulse-slow"
+        />
+      </div>
 
       <div className="max-w-4xl mx-auto text-center relative z-10 w-full">
         {/* Main 404 Text with Glitch Effect */}
         <div className="mb-6 sm:mb-8 relative">
           <h1
-            className="text-[120px] sm:text-[180px] md:text-[220px] lg:text-[280px] font-black leading-none text-transparent bg-clip-text bg-gradient-to-b from-aspexa-red to-red-900 select-none relative"
+            className="text-[80px] sm:text-[180px] md:text-[220px] lg:text-[280px] font-black leading-none text-transparent bg-clip-text bg-gradient-to-b from-aspexa-red to-red-900 select-none relative"
             style={{
               textShadow: '0 0 80px rgba(239, 68, 68, 0.5)',
             }}
@@ -132,13 +141,12 @@ const NotFound: React.FC = () => {
             {terminalLines.map((line, index) => (
               <div
                 key={index}
-                className={`${
-                  line.startsWith('$')
-                    ? 'text-green-400'
-                    : line.includes('ERROR')
+                className={`${line && line.startsWith('$')
+                  ? 'text-green-400'
+                  : line && line.includes('ERROR')
                     ? 'text-aspexa-red'
                     : 'text-gray-300'
-                }`}
+                  }`}
                 style={{
                   animation: 'fadeIn 0.3s ease-in'
                 }}

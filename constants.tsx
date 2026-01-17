@@ -2,80 +2,77 @@ import React from 'react';
 import { ShieldAlert, Database, Languages, FileText, Users, Cpu } from 'lucide-react';
 import { TeamMember, Service, FaqItem } from './types';
 
-const getAssetPath = (path: string) => {
-  const base = import.meta.env.BASE_URL || '/';
-  if (!path) return base;
-  return `${base}${path.startsWith('/') ? path.slice(1) : path}`;
-};
+// Hardcoded base path for GitHub Pages deployment
+const BASE_PATH = '/aspexa-website/';
 
 export const TEAM_MEMBERS: TeamMember[] = [
   {
     name: "Baraa Al Refai",
     role: "Co-Founder & CEO",
-    image: getAssetPath("/team/baraa.png"),
+    image: `${BASE_PATH}team/baraa.png`,
     linkedin: "#",
     group: 'founders'
   },
   {
     name: "Abdulrahman Ali",
     role: "Co-Founder & CTO",
-    image: getAssetPath("/team/abdulrahman.png"),
+    image: `${BASE_PATH}team/abdulrahman.png`,
     linkedin: "#",
     group: 'founders'
   },
   {
     name: "Hamza Khaled",
     role: "Co-Founder & CAIO",
-    image: getAssetPath("/team/hamza.png"),
+    image: `${BASE_PATH}team/hamza.png`,
     linkedin: "#",
     group: 'founders'
   },
   {
     name: "Abdullah Othman",
     role: "Chief Financial Officer",
-    image: getAssetPath("/team/abdulla.png"),
+    image: `${BASE_PATH}team/abdulla.png`,
     linkedin: "#",
     group: 'executives'
   },
   {
     name: "Youssef Fathy",
     role: "Chief Partnerships Officer",
-    image: getAssetPath("/team/youssef.png"),
+    image: `${BASE_PATH}team/youssef.png`,
     linkedin: "#",
     group: 'executives'
   },
   {
     name: "Soultan Toure",
     role: "AI Research & Testing Lead",
-    image: getAssetPath("/team/soultan.png"),
+    image: `${BASE_PATH}team/soultan.png`,
     linkedin: "#",
     group: 'technical'
   },
   {
     name: "Kawsar",
     role: "Technical Research Lead",
-    image: getAssetPath("/team/kawsar.png"),
+    image: `${BASE_PATH}team/kawsar.png`,
     linkedin: "#",
     group: 'technical'
   },
   {
     name: "Yasser",
     role: "Senior Red Team & AI Tester",
-    image: getAssetPath("/team/yasser.png"),
+    image: `${BASE_PATH}team/yasser.png`,
     linkedin: "#",
     group: 'technical'
   },
   {
     name: "Mooad Ali",
     role: "Senior Red Team & AI Tester",
-    image: getAssetPath("/team/moaad.jpg"),
+    image: `${BASE_PATH}team/moaad.jpg`,
     linkedin: "#",
     group: 'technical'
   },
   {
     name: "Osama",
     role: "QA & Compliance Lead",
-    image: getAssetPath("/team/osama.png"),
+    image: `${BASE_PATH}team/osama.png`,
     linkedin: "#",
     group: 'technical'
   }

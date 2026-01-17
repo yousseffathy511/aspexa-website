@@ -2,11 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Shield, FileCheck, Code, Globe, ArrowRight, Terminal, Activity, Crosshair, Plus, Send, Zap } from 'lucide-react';
 
-const getAssetPath = (path: string) => {
-  const base = import.meta.env.BASE_URL || '/';
-  if (!path) return base;
-  return `${base}${path.startsWith('/') ? path.slice(1) : path}`;
-};
+const BASE_PATH = '/aspexa-website/';
 
 /* --- Components --- NO FRAMER MOTION --- */
 
@@ -125,96 +121,113 @@ const KillChainStep = ({ number, title }: { number: string, title: string }) => 
 };
 
 const Home: React.FC = () => {
+  // Email subscription state
+  const [email, setEmail] = useState('');
+  const [subscribeStatus, setSubscribeStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setSubscribeStatus('error');
+      return;
+    }
+    // Here you would integrate with your backend/email service
+    console.log('Subscribed:', email);
+    setSubscribeStatus('success');
+    setEmail('');
+    // Reset status after 3 seconds
+    setTimeout(() => setSubscribeStatus('idle'), 3000);
+  };
+
   return (
     <div className="min-h-screen bg-transparent text-white relative">
 
       {/* === HERO SECTION === */}
-      <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
+      <section className="relative min-h-screen flex items-center pt-40 lg:pt-36 xl:pt-32 overflow-hidden">
 
-        <div className="max-w-[1600px] mx-auto px-6 w-full relative z-10 grid lg:grid-cols-2 gap-12 items-center">
+        <div className="max-w-[1700px] mx-auto px-6 w-full relative z-10 grid lg:grid-cols-2 gap-8 lg:gap-10 xl:gap-16 items-center">
 
           {/* Hero Content */}
-          <div className="space-y-8">
+          <div className="space-y-6 lg:space-y-5 xl:space-y-8 text-center lg:text-left">
             {/* Status Badge */}
-            <div className="inline-flex items-center gap-3 px-5 py-3 rounded-full bg-gradient-to-r from-aspexa-red/10 to-purple-600/10 border border-aspexa-red/30 backdrop-blur-xl shadow-[0_8px_32px_0_rgba(236,0,0,0.2)] hover:border-aspexa-red/50 transition-all duration-300">
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-aspexa-red opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-aspexa-red shadow-[0_0_10px_rgba(236,0,0,0.8)]"></span>
-              </span>
-              <span className="text-sm font-mono font-bold uppercase tracking-wider text-white">
-                System Status: <span className="text-aspexa-red">Active Defense</span>
-              </span>
+            <div className="flex justify-center lg:justify-start">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-aspexa-red/10 to-purple-600/10 border border-aspexa-red/30 backdrop-blur-xl shadow-[0_8px_32px_0_rgba(236,0,0,0.2)] hover:border-aspexa-red/50 transition-all duration-300">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-aspexa-red opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-aspexa-red shadow-[0_0_10px_rgba(236,0,0,0.8)]"></span>
+                </span>
+                <span className="text-xs font-mono font-bold uppercase tracking-wider text-white">
+                  System Status: <span className="text-aspexa-red">Active Defense</span>
+                </span>
+              </div>
             </div>
 
             {/* Title */}
             <div>
-              <h1 className="text-7xl md:text-8xl lg:text-9xl font-bold uppercase tracking-tighter leading-[0.85] mb-4">
-                <span className="block text-outline mb-2">Advanced</span>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-8xl 2xl:text-9xl font-bold uppercase tracking-tighter mb-2">
+                <span className="block text-outline mb-1">Advanced</span>
                 <span className="block text-aspexa-red drop-shadow-[0_0_30px_rgba(236,0,0,0.5)]">AI WARFARE</span>
               </h1>
-              <div className="h-1 w-32 bg-gradient-to-r from-aspexa-red to-transparent mt-8 shadow-[0_0_20px_rgba(236,0,0,0.6)]"></div>
+              <div className="h-1 xl:h-1.5 w-20 xl:w-32 bg-gradient-to-r from-aspexa-red to-transparent mt-4 xl:mt-6 shadow-[0_0_20px_rgba(236,0,0,0.6)] mx-auto lg:mx-0"></div>
             </div>
 
             {/* Description */}
-            <div className="relative pl-8 border-l-2 border-aspexa-red/50 bg-gradient-to-r from-aspexa-red/5 to-transparent py-6 pr-4 backdrop-blur-sm">
-              <div className="absolute left-0 top-0 w-1 h-full bg-gradient-to-b from-aspexa-red via-aspexa-red/50 to-transparent"></div>
-              <p className="text-lg md:text-xl text-gray-300 font-light leading-relaxed max-w-xl">
+            <div className="relative pl-0 lg:pl-4 xl:pl-6 border-l-0 lg:border-l-2 border-aspexa-red/50 bg-transparent lg:bg-gradient-to-r lg:from-aspexa-red/5 lg:to-transparent py-2 xl:py-4 pr-0 lg:pr-4">
+              <div className="hidden lg:block absolute left-0 top-0 w-0.5 h-full bg-gradient-to-b from-aspexa-red via-aspexa-red/50 to-transparent"></div>
+              <p className="text-gray-300 font-light leading-relaxed max-w-lg xl:max-w-xl mx-auto lg:mx-0 text-base lg:text-lg xl:text-xl">
                 Adversarial testing for the Generative AI era. We identify prompt injections,
                 jailbreaks, and RAG poisoning before your adversaries do.
               </p>
-              <p className="text-lg md:text-xl text-white font-semibold mt-3 leading-relaxed">
+              <p className="text-white font-semibold mt-2 xl:mt-3 leading-relaxed text-sm lg:text-base xl:text-lg">
                 Specializing in Arabic Dialects & MENA Compliance.
               </p>
             </div>
 
             {/* Buttons */}
-            <div className="flex flex-wrap gap-4 pt-6">
+            <div className="flex flex-col sm:flex-row flex-wrap gap-4 xl:gap-6 pt-4 xl:pt-6 justify-center lg:justify-start">
               <Link
                 to="/contact"
-                className="group relative px-8 py-4 font-bold uppercase tracking-widest overflow-hidden transition-all duration-300 inline-flex items-center gap-2 bg-aspexa-red text-white shadow-[0_0_30px_rgba(236,0,0,0.4)] hover:shadow-[0_0_50px_rgba(236,0,0,0.8)] hover:scale-[1.02]"
+                className="group relative w-full sm:w-auto px-6 xl:px-8 py-3 xl:py-4 text-sm xl:text-base font-bold uppercase tracking-widest overflow-hidden transition-all duration-300 inline-flex items-center justify-center gap-2 bg-aspexa-red text-white shadow-[0_0_30px_rgba(236,0,0,0.4)] hover:shadow-[0_0_50px_rgba(236,0,0,0.8)] hover:scale-[1.02]"
               >
                 <span className="relative z-10 flex items-center gap-2">
-                  Initiate Audit <Terminal size={18} className="group-hover:rotate-12 transition-transform duration-300" />
+                  Initiate Audit <Terminal size={16} className="xl:w-5 xl:h-5 group-hover:rotate-12 transition-transform duration-300" />
                 </span>
               </Link>
 
               <Link
                 to="/services"
-                className="group relative px-8 py-4 font-bold uppercase tracking-widest overflow-hidden transition-all duration-300 inline-flex items-center gap-2 border-2 border-white/30 hover:border-aspexa-red text-white bg-white/5 backdrop-blur-sm hover:bg-aspexa-red/10 hover:scale-[1.02]"
+                className="group relative w-full sm:w-auto px-6 xl:px-8 py-3 xl:py-4 text-sm xl:text-base font-bold uppercase tracking-widest overflow-hidden transition-all duration-300 inline-flex items-center justify-center gap-2 border-2 border-white/30 hover:border-aspexa-red text-white bg-white/5 backdrop-blur-sm hover:bg-aspexa-red/10 hover:scale-[1.02]"
               >
                 <span className="relative z-10 flex items-center gap-2">
-                  Explore Vectors <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform duration-300" />
+                  Explore Vectors <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-300" />
                 </span>
               </Link>
             </div>
           </div>
 
           {/* Hero Visual - Video Player */}
-          <div className="relative hidden lg:block">
+          <div className="hero-video-wrapper relative flex-shrink transition-transform duration-500 w-full max-w-xl lg:max-w-[90%] xl:max-w-full mx-auto">
             {/* Ambient Glow */}
             <div className="absolute -inset-8 bg-gradient-radial from-zinc-700/30 to-transparent blur-[80px] opacity-40 pointer-events-none"></div>
 
             {/* Video Container */}
-            <div className="relative hover-3d" style={{
-              transform: 'perspective(1500px) rotateY(-8deg) rotateX(4deg)',
-              transition: 'transform 0.6s ease'
-            }}>
+            <div className="relative hover-3d video-container-3d">
 
               {/* Terminal Window Frame */}
               <div className="relative bg-gradient-to-br from-zinc-900 to-black border-2 border-zinc-800 rounded-2xl overflow-hidden shadow-[0_40px_80px_-20px_rgba(0,0,0,0.9),0_20px_40px_-10px_rgba(0,0,0,0.7)]">
 
                 {/* Top Bar */}
-                <div className="bg-gradient-to-r from-zinc-900 to-zinc-800 border-b border-zinc-700 px-6 py-4 flex items-center justify-between">
+                <div className="bg-gradient-to-r from-zinc-900 to-zinc-800 border-b border-zinc-700 px-4 md:px-6 py-3 md:py-4 flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <div className="flex gap-2">
-                      <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                      <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                      <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                      <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-red-500"></div>
+                      <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-yellow-500"></div>
+                      <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-green-500"></div>
                     </div>
-                    <span className="text-xs font-mono text-gray-500 ml-4">ASPEXA_DEMO_TERMINAL.mp4</span>
+                    <span className="text-[10px] md:text-xs font-mono text-gray-500 ml-2 md:ml-4">ASPEXA_DEMO_TERMINAL.mp4</span>
                   </div>
-                  <div className="flex items-center gap-2 text-xs font-mono text-aspexa-red">
-                    <div className="w-2 h-2 bg-aspexa-red rounded-full animate-pulse"></div>
+                  <div className="flex items-center gap-2 text-[10px] md:text-xs font-mono text-aspexa-red">
+                    <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-aspexa-red rounded-full animate-pulse"></div>
                     <span>RECORDING</span>
                   </div>
                 </div>
@@ -226,32 +239,44 @@ const Home: React.FC = () => {
                     controls
                     preload="metadata"
                   >
-                    <source src={getAssetPath("/video/Video_Demo_Prompt_Request.mp4")} type="video/mp4" />
+                    <source src={`${BASE_PATH}video/Video_Demo_Prompt_Request.mp4`} type="video/mp4" />
                   </video>
                 </div>
               </div>
 
-              {/* Corner Accents */}
-              <div className="absolute -top-4 -left-4 w-16 h-16 border-t-4 border-l-4 border-aspexa-red pointer-events-none"></div>
-              <div className="absolute -top-4 -right-4 w-16 h-16 border-t-4 border-r-4 border-white/60 pointer-events-none"></div>
-              <div className="absolute -bottom-4 -left-4 w-16 h-16 border-b-4 border-l-4 border-white/60 pointer-events-none"></div>
-              <div className="absolute -bottom-4 -right-4 w-16 h-16 border-b-4 border-r-4 border-aspexa-red pointer-events-none"></div>
+              {/* Corner Accents - Hidden on small mobile to reduce clutter */}
+              <div className="hidden sm:block absolute -top-4 -left-4 w-12 md:w-16 h-12 md:h-16 border-t-4 border-l-4 border-aspexa-red pointer-events-none"></div>
+              <div className="hidden sm:block absolute -top-4 -right-4 w-12 md:w-16 h-12 md:h-16 border-t-4 border-r-4 border-white/60 pointer-events-none"></div>
+              <div className="hidden sm:block absolute -bottom-4 -left-4 w-12 md:w-16 h-12 md:h-16 border-b-4 border-l-4 border-white/60 pointer-events-none"></div>
+              <div className="hidden sm:block absolute -bottom-4 -right-4 w-12 md:w-16 h-12 md:h-16 border-b-4 border-r-4 border-aspexa-red pointer-events-none"></div>
             </div>
 
             <style>{`
-               .hover-3d:hover {
-                 transform: perspective(1500px) rotateY(-4deg) rotateX(2deg) scale(1.02) !important;
-               }
-             `}</style>
+                /* Default (Mobile): Flat, no transform */
+                .video-container-3d {
+                  transform: none;
+                  transition: transform 0.6s ease;
+                }
+                
+                /* Desktop (LG): 3D Transform applied */
+                @media (min-width: 1024px) {
+                  .video-container-3d {
+                     transform: perspective(1500px) rotateY(-8deg) rotateX(4deg);
+                  }
+                  .hover-3d:hover {
+                    transform: perspective(1500px) rotateY(-4deg) rotateX(2deg) scale(1.02) !important;
+                  }
+                }
+              `}</style>
 
             {/* Metadata */}
-            <div className="mt-8 flex items-center justify-between text-xs font-mono text-gray-600 uppercase tracking-wider pointer-events-none">
+            <div className="mt-4 md:mt-8 flex items-center justify-between text-[10px] md:text-xs font-mono text-gray-600 uppercase tracking-wider pointer-events-none px-2">
               <span className="flex items-center gap-2">
-                <Crosshair size={14} className="text-aspexa-red" />
+                <Crosshair size={12} className="text-aspexa-red" />
                 SYSTEM_ID: ASP-DEMO-2025
               </span>
               <span className="flex items-center gap-2">
-                <Zap size={14} className="text-yellow-500" />
+                <Zap size={12} className="text-yellow-500" />
                 REAL-TIME ANALYSIS
               </span>
             </div>
@@ -280,8 +305,8 @@ const Home: React.FC = () => {
       {/* === SERVICES BENTO === */}
       <section className="py-32 relative z-10">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="mb-20 flex flex-col md:flex-row justify-between items-end gap-8 border-b border-white/10 pb-8">
-            <div>
+          <div className="mb-20 flex flex-col md:flex-row justify-between items-center md:items-end gap-8 border-b border-white/10 pb-8">
+            <div className="text-center md:text-left">
               <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tighter mb-4">
                 Operational <span className="text-aspexa-red">Capabilities</span>
               </h2>
@@ -289,7 +314,7 @@ const Home: React.FC = () => {
                 We employ a full-spectrum offensive methodology designed to dismantle AI safety guardrails.
               </p>
             </div>
-            <Link to="/services" className="text-sm font-bold uppercase tracking-widest border-b border-aspexa-red pb-1 hover:text-aspexa-red transition-colors">
+            <Link to="/services" className="text-sm font-bold uppercase tracking-widest border-b border-aspexa-red pb-1 hover:text-aspexa-red transition-colors self-center md:self-auto">
               View All Services
             </Link>
           </div>
@@ -412,12 +437,16 @@ const Home: React.FC = () => {
                     </div>
                   </div>
 
-                  <form className="relative flex items-center group">
+                  <form onSubmit={handleSubscribe} className="relative flex items-center group">
                     <span className="absolute left-0 text-aspexa-red font-mono font-bold text-xl">{'>'}</span>
                     <input
                       type="email"
+                      value={email}
+                      onChange={(e) => { setEmail(e.target.value); setSubscribeStatus('idle'); }}
                       placeholder="ENTER_EMAIL_ADDRESS"
-                      className="w-full bg-transparent py-4 pl-8 pr-12 text-white font-mono text-lg focus:outline-none placeholder-zinc-700 uppercase tracking-wider border-b border-zinc-800 focus:border-aspexa-red transition-colors"
+                      className={`w-full bg-transparent py-4 pl-8 pr-12 text-white font-mono text-lg focus:outline-none placeholder-zinc-700 uppercase tracking-wider border-b transition-colors ${subscribeStatus === 'error' ? 'border-red-500' : subscribeStatus === 'success' ? 'border-emerald-500' : 'border-zinc-800 focus:border-aspexa-red'
+                        }`}
+                      required
                     />
                     <button
                       type="submit"
@@ -426,6 +455,13 @@ const Home: React.FC = () => {
                       <Send size={20} />
                     </button>
                   </form>
+
+                  {subscribeStatus === 'success' && (
+                    <div className="mt-2 text-emerald-500 text-xs font-mono uppercase tracking-wider">TRANSMISSION_RECEIVED</div>
+                  )}
+                  {subscribeStatus === 'error' && (
+                    <div className="mt-2 text-red-500 text-xs font-mono uppercase tracking-wider">INVALID_EMAIL_FORMAT</div>
+                  )}
 
                   <div className="mt-6 flex justify-between items-center text-[10px] font-mono text-gray-600 uppercase tracking-widest">
                     <span>Encryption: AES-256</span>

@@ -14,79 +14,79 @@ const METHODOLOGY_STEPS = [
 ];
 
 // Simple comparison cell - no Framer Motion
-const ComparisonCell = ({
-  company,
-  text,
-  isAspexa = false
-}: {
+const ComparisonCell: React.FC<{
   company: string,
   text: string,
   isAspexa?: boolean
+}> = ({
+  company,
+  text,
+  isAspexa = false
 }) => {
-  return (
-    <div
-      className={`p-8 flex flex-col items-center justify-center text-center backdrop-blur-sm ${isAspexa
-        ? 'bg-black border-b-4 border-aspexa-red relative overflow-hidden'
-        : 'bg-black/80'
-        }`}
-    >
-      {isAspexa && <div className="absolute inset-0 bg-aspexa-red/5"></div>}
-      <span className={`font-bold uppercase tracking-widest text-sm mb-2 ${isAspexa ? 'text-aspexa-red' : 'text-gray-500'}`}>
-        {company}
-      </span>
-      <span className={`text-xl font-medium ${isAspexa ? 'font-bold uppercase' : ''}`}>
-        {text}
-      </span>
-    </div>
-  );
-};
+    return (
+      <div
+        className={`p-8 flex flex-col items-center justify-center text-center backdrop-blur-sm ${isAspexa
+          ? 'bg-black border-b-4 border-aspexa-red relative overflow-hidden'
+          : 'bg-black/80'
+          }`}
+      >
+        {isAspexa && <div className="absolute inset-0 bg-aspexa-red/5"></div>}
+        <span className={`font-bold uppercase tracking-widest text-sm mb-2 ${isAspexa ? 'text-aspexa-red' : 'text-gray-500'}`}>
+          {company}
+        </span>
+        <span className={`text-xl font-medium ${isAspexa ? 'font-bold uppercase' : ''}`}>
+          {text}
+        </span>
+      </div>
+    );
+  };
 
 // Simple methodology step - no Framer Motion
-const MethodologyStep = ({
-  id,
-  title,
-  desc
-}: {
+const MethodologyStep: React.FC<{
   id: string,
   title: string,
   desc: string
+}> = ({
+  id,
+  title,
+  desc
 }) => {
-  return (
-    <div className="group flex flex-col md:flex-row items-center gap-6 p-6 border border-white/10 hover:border-aspexa-red/40 bg-black/60 transition-all duration-300 hover:translate-x-1">
-      <div className="font-mono text-4xl font-bold text-zinc-700 group-hover:text-aspexa-red/20 transition-colors">0{id}</div>
-      <div className="flex-1 text-center md:text-left">
-        <h3 className="text-xl font-bold uppercase mb-2 tracking-wider text-white">{title}</h3>
-        <p className="text-gray-500 text-sm leading-relaxed">{desc}</p>
+    return (
+      <div className="group flex flex-col md:flex-row items-center gap-6 p-6 border border-white/10 hover:border-aspexa-red/40 bg-black/60 transition-all duration-300 hover:translate-x-1">
+        <div className="font-mono text-4xl font-bold text-zinc-700 group-hover:text-aspexa-red/20 transition-colors">0{id}</div>
+        <div className="flex-1 text-center md:text-left">
+          <h3 className="text-xl font-bold uppercase mb-2 tracking-wider text-white">{title}</h3>
+          <p className="text-gray-500 text-sm leading-relaxed">{desc}</p>
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  };
 
 // Simple compliance card - no Framer Motion
-const ComplianceCard = ({
+const ComplianceCard: React.FC<{
+  icon: React.ElementType,
+  title: string,
+  items: string[]
+}> = ({
   icon: Icon,
   title,
   items
-}: {
-  icon: any,
-  title: string,
-  items: string[]
 }) => {
-  return (
-    <div className="bg-black/50 p-8 border border-white/10 hover:border-white/30 transition-colors backdrop-blur-md">
-      <h4 className="text-aspexa-red font-bold uppercase mb-6 text-sm tracking-widest flex items-center gap-2">
-        <Icon size={16} /> {title}
-      </h4>
-      <ul className="space-y-3 text-sm text-gray-400">
-        {items.map((item, i) => (
-          <li key={i} className="flex items-center gap-3">
-            <span className="w-1.5 h-1.5 bg-zinc-600 rounded-full"></span> {item}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-};
+    return (
+      <div className="bg-black/50 p-8 border border-white/10 hover:border-white/30 transition-colors backdrop-blur-md">
+        <h4 className="text-aspexa-red font-bold uppercase mb-6 text-sm tracking-widest flex items-center gap-2">
+          <Icon size={16} /> {title}
+        </h4>
+        <ul className="space-y-3 text-sm text-gray-400">
+          {items.map((item, i) => (
+            <li key={i} className="flex items-center gap-3">
+              <span className="w-1.5 h-1.5 bg-zinc-600 rounded-full"></span> {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  };
 
 const About: React.FC = () => {
   return (

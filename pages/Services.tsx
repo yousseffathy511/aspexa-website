@@ -1,5 +1,6 @@
 import React from 'react';
 import { SERVICES_DATA } from '../constants';
+import { Service } from '../types';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Terminal, Clock, Users } from 'lucide-react';
 
@@ -13,7 +14,7 @@ const COMPARISON_DATA = [
 ];
 
 // Simple service card - no Framer Motion, just CSS transitions
-const ServiceCard = ({ service }: { service: any }) => {
+const ServiceCard: React.FC<{ service: Service }> = ({ service }) => {
   return (
     <div
       id={service.id}
@@ -27,7 +28,7 @@ const ServiceCard = ({ service }: { service: any }) => {
           <p className="text-gray-300 text-lg leading-relaxed max-w-3xl">{service.description}</p>
         </div>
         <div className="p-4 bg-white/5 rounded border border-white/10 text-aspexa-red group-hover:text-white group-hover:bg-aspexa-red transition-colors duration-300 self-start group-hover:scale-105 group-hover:rotate-3">
-          {React.cloneElement(service.icon as React.ReactElement<any>, { className: "w-8 h-8" })}
+          {React.isValidElement(service.icon) && React.cloneElement(service.icon as React.ReactElement, { className: "w-8 h-8" })}
         </div>
       </div>
 
